@@ -7,12 +7,13 @@
 .Dashpane {
     width: 20rem;
     height: 100%;
-    border-right: 2px solid #C1DBE3;
+    border-right: 2px solid #FCFAF9;
+    background-color: #0D1B1E;
 }
 
 .Dashpane .option {
-    border-top: 2px solid #C1DBE3;
-    border-bottom: 2px solid #C1DBE3;
+    border-top: .5 solid #FCFAF9;
+    border-bottom: 2px solid #FCFAF9;
     padding: 1rem;
     cursor: pointer;
 }
@@ -20,7 +21,7 @@
 .Dashpane .option:hover,
 .Dashpane .option:active,
 .Dashpane .option:focus {
-    background-color: #C1DBE3;
+    background-color: #FCFAF9;
     color: #0D1B1E;
 }
 
@@ -29,7 +30,7 @@
     letter-spacing: 2px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 850px) {
     .Dashpane {
         display: none;
     }
