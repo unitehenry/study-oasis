@@ -3,6 +3,7 @@ import './Dashboard.css';
 
 // Components
 import SwipeWindow from './SwipeWindow';
+import AskQuestion from './AskQuestion';
 
 const Dashpane = ({ handleSignOut }) => {
     return (
@@ -28,7 +29,8 @@ const Dashboard = ({ userSession, handleSignOut }) => {
         <div className="Dashboard">
             <div className="container">
                 <Dashpane handleSignOut={handleSignOut} />
-                <SwipeWindow />
+                <AskQuestion />
+                {/* <SwipeWindow /> */}
             </div>
         </div>
     )

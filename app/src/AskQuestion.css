@@ -1,0 +1,60 @@
+.AskQuestion {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AskQuestion .question-card {
+    border: 2px solid #FCFAF9;
+    width: 85%;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #0D1B1E;
+}
+
+.AskQuestion .choice {
+    width: 100%;
+}
+
+.AskQuestion .choice input {
+    width: 100%;
+    margin: 1rem 0;
+    outline: none;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    border: 2px solid #FCFAF9;
+    color: #0D1B1E;
+    border-radius: 5px;
+    background-color: #FCFAF9;
+}
+
+.AskQuestion .options .option {
+    padding: 1rem 2rem;
+    display: flex;
+    border: 2px solid #FCFAF9;
+    border-radius: 5px;
+    background-color: #364652;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.AskQuestion .options span {
+    cursor: pointer;
+}
+
+.AskQuestion .options span:hover,
+.AskQuestion .options span:active,
+.AskQuestion .options span:focus {
+    color: #0D1B1E;
+}
+
+.AskQuestion .submit-btn {
+    margin: 1rem 0;
+}
+
+.AskQuestion .footnote {
+    text-align: center;
+}
