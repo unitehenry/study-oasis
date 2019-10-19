@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-
 import Profile from './Profile.js';
-import Signin from './SignIn.js';
-import { UserSession } from 'blockstack';
-import { appConfig } from './assets/constants'
+import Signin from './Signin.js';
+import {
+  UserSession,
+  AppConfig
+} from 'blockstack';
 
-
-import './App.css';
-
-// Components
-// import SignIn from './Signin';
-
-const userSession = new UserSession({ appConfig })
-
+const appConfig = new AppConfig()
+const userSession = new UserSession({ appConfig: appConfig })
 
 export default class App extends Component {
+
 
   handleSignIn(e) {
     e.preventDefault();
@@ -39,15 +35,12 @@ export default class App extends Component {
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((userData) => {
-        //if (!userData.username) {
-        //  throw new Error('This app requires a username.')
-        //}
-        window.location = window.location.origin;
+        window.history.replaceState({}, document.title, "/")
+        this.setState({ userData: userData})
       });
     }
   }
-
 }
