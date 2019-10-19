@@ -1,0 +1,47 @@
+.SignIn {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SignIn form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 25rem;
+    margin: 1rem;
+}
+
+.SignIn .field {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.SignIn .field input {
+    margin: 10px;
+    background-color: transparent;
+    border: 2px solid #FCFAF9; 
+    color: #FCFAF9;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    outline: none;
+}
+
+.SignIn .field label {
+    margin: 10px;
+}
+
+.SignIn .actions {
+    margin: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.SignIn .actions button {
+    margin: 10px;
+} 
