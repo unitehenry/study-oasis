@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #0D1B1E;
+    background-color: transparent;
     color: #FCFAF9;
     border: 2px solid #FCFAF9;
     padding: 1rem;
@@ -24,17 +24,28 @@
 .SwipeWindow .left-swipe {
     position: absolute;
     top: 40%;
-    left: 0;
+    left: 20px;
 }
 
 .SwipeWindow .right-swipe {
     position: absolute;
     top: 40%;
-    right: 0;
+    right: 20px;
 }
 
 .SwipeWindow .swipe-card {
     border: 2px solid #FCFAF9;
     height: 30rem;
     width: 30rem;
+    background-color: red;
+}
+
+@media (max-width: 600px) {
+    .SwipeWindow .left-swipe {
+        display: none;
+    }
+
+    .SwipeWindow .right-swipe {
+        display: none;
+    }
 }

@@ -1,9 +1,10 @@
 .SignIn {
-    height: 80vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    padding: 2rem;
 }
 
 .SignIn form {
@@ -42,6 +43,7 @@
     justify-content: center;
 }
 
-.SignIn .actions button {
-    margin: 10px;
+.SignIn button {
+    width: 25rem;
+    margin: 2rem 0;
 } 

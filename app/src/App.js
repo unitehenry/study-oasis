@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
+import './App.css';
 
-import Profile from './Profile.js';
-import Signin from './Signin.js';
 import { UserSession } from 'blockstack';
 import { appConfig } from './assets/constants'
 
-
-import './App.css';
-
 // Components
-// import SignIn from './Signin';
+import SignIn from './SignIn';
 import Dashboard from './Dashboard';
-import SignIn from './Signin';
 
 const userSession = new UserSession({ appConfig })
-
 
 export default class App extends Component {
 
@@ -30,18 +24,13 @@ export default class App extends Component {
 
   render() {
     return (
-      
-      <div className="site-wrapper">
-        <Dashboard />
-        {/* <div className="site-wrapper-inner"> */}
-          {/* { !userSession.isUserSignedIn() ? <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />: <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />} */}
-        {/* </div> */}
-      {/* </div> */}
+      <div>
+          {!userSession.isUserSignedIn() ? <SignIn userSession={userSession} handleSignIn={this.handleSignIn} /> : <Dashboard userSession={userSession} handleSignOut={(e) => this.handleSignOut(e)} />}
       </div>
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((userData) => {
         //if (!userData.username) {
