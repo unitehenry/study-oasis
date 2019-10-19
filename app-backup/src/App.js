@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Profile from './Profile.js';
-import Signin from './Signin.js';
+import Signin from './SignIn.js';
 import { UserSession } from 'blockstack';
 import { appConfig } from './assets/constants'
 
@@ -11,7 +11,7 @@ import './App.css';
 // Components
 // import SignIn from './Signin';
 import Dashboard from './Dashboard';
-import SignIn from './Signin';
+import SignIn from './SignIn';
 
 const userSession = new UserSession({ appConfig })
 
@@ -32,12 +32,11 @@ export default class App extends Component {
     return (
       
       <div className="site-wrapper">
-        <Dashboard />
+        <SignIn />
         {/* <div className="site-wrapper-inner"> */}
           {/* { !userSession.isUserSignedIn() ? <Signin userSession={userSession} handleSignIn={ this.handleSignIn } />: <Profile userSession={userSession} handleSignOut={ this.handleSignOut } />} */}
         {/* </div> */}
       {/* </div> */}
-      </div>
     );
   }
 

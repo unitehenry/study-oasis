@@ -1,0 +1,22 @@
+.Navbar {
+    width: 100vw;
+    padding: 1rem;
+    border-bottom: 2px solid #C1DBE3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navbar h2 {
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    user-select: none;
+    color: #C1DBE3;
+}
+
+.Navbar button {
+    width: 10rem;
+    font-size: 10px;
+    padding: 10px 5px;
+    border-radius: 0;
+}

@@ -1,0 +1,40 @@
+.SwipeWindow {
+    flex-grow: 1;
+    padding:    ;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SwipeWindow .swipe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #0D1B1E;
+    color: #FCFAF9;
+    border: 2px solid #FCFAF9;
+    padding: 1rem;
+    width: 5rem;
+    height: 5rem;
+    margin: 1rem;
+}
+
+.SwipeWindow .left-swipe {
+    position: absolute;
+    top: 40%;
+    left: 0;
+}
+
+.SwipeWindow .right-swipe {
+    position: absolute;
+    top: 40%;
+    right: 0;
+}
+
+.SwipeWindow .swipe-card {
+    border: 2px solid #FCFAF9;
+    height: 30rem;
+    width: 30rem;
+}
