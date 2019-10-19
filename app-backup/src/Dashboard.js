@@ -2,7 +2,7 @@ import React from 'react';
 import './Dashboard.css';
 
 // Components
-import Navbar from './NavBar';
+import Navbar from './Navbar';
 import SwipeWindow from './SwipeWindow';
 
 const Dashpane = () => {

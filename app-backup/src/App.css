@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #0D1B1E;
+  color: #FCFAF9;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header-logo {
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  letter-spacing: 2vw;
+}
+
+button {
+  font-family: 'Roboto';
+  width: 100%;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  outline: none;
+  text-transform: uppercase;
+  color: #FCFAF9;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus,
+button:active {
+  background-color: #FCFAF9;
+  color: #0D1B1E;
+}
+
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+} */
