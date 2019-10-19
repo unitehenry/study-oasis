@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
 }
 
 .SwipeWindow .swipe {
@@ -18,7 +19,6 @@
     width: 5rem;
     height: 5rem;
     margin: 1rem;
-    border-radius: 100%;
 }
 
 .SwipeWindow .left-swipe {
@@ -35,10 +35,44 @@
 
 .SwipeWindow .swipe-card {
     border: 2px solid #FCFAF9;
-    height: 30rem;
-    width: 30rem;
-    background-color: red;
+    background-color: #0D1B1E;
     border-radius: 5px;
+    width: 85%;
+}
+
+.Question {
+    padding: 1rem 2rem;
+}
+
+.Question li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.Question li input {
+    margin: 1rem;
+}
+
+.Question .actions {
+    display: flex;
+}
+
+.Question .actions button {
+    margin: 1rem;
+}
+
+.Question textarea {
+    width: 100%;
+    margin: 1rem 0;
+    outline: none;
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    border: 2px solid #FCFAF9;
+    color: #0D1B1E;
+    border-radius: 5px;
+    background-color: #FCFAF9;
 }
 
 @media (max-width: 850px) {

@@ -8,14 +8,14 @@ const Dashpane = ({ handleSignOut }) => {
     return (
         <div className="Dashpane">
             <div className="option">
-                <p>tutors</p>
+                <p>ask a question</p>
             </div>
-            {/* <div className="option"> */}
-                {/* <p>buddies</p> */}
-            {/* </div> */}
-            {/* <div className="option"> */}
-                {/* <p>questions</p> */}
-            {/* </div> */}
+            <div className="option">
+                <p>answers</p>
+            </div>
+            <div className="option">
+                <p>questions</p>
+            </div>
             <div className="option" onClick={(e) => handleSignOut(e)}>
                 <p>sign out</p>
             </div>

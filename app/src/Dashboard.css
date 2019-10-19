@@ -1,6 +1,5 @@
 .Dashboard .container {
     height: 100vh;
-    flex-wrap: wrap;
     display: flex;
 } 
 
