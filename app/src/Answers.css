@@ -1,24 +1,26 @@
 .Answers {
     padding: 2rem;
     flex-grow: 1;
+    overflow-x: scroll;
 }
 
-.Answers .answer {
+.Answer {
     border: 2px solid #FCFAF9;
     width: 100%;
     border-radius: 5px;
     padding: 1rem;
     background-color: #0D1B1E;
+    margin: 1rem 0;
 }
 
-.Answers .answer p {
+.Answer p {
     margin: 10px 0;
 }
 
-.Answers .actions {
+.Answer .actions {
     display: flex;
 }
 
-.Answers .actions button {
+.Answer .actions button {
     margin: 1rem;
 }
