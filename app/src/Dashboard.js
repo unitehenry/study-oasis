@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Dashboard.css';
 
 // Components
 import SwipeWindow from './SwipeWindow';
 import AskQuestion from './AskQuestion';
+import Answers from './Answers';
 
-const Dashpane = ({ handleSignOut }) => {
+const Dashpane = ({ handleSignOut, setCurrentView }) => {
     return (
         <div className="Dashpane">
-            <div className="option">
+            <div className="option" onClick={() => setCurrentView('askquestion')}>
                 <p>ask a question</p>
             </div>
-            <div className="option">
+            <div className="option" onClick={() => setCurrentView('answers')}>
                 <p>answers</p>
             </div>
-            <div className="option">
+            <div className="option" onClick={() => setCurrentView('questions')}>
                 <p>questions</p>
             </div>
             <div className="option" onClick={(e) => handleSignOut(e)}>
@@ -25,12 +26,15 @@ const Dashpane = ({ handleSignOut }) => {
 }
 
 const Dashboard = ({ userSession, handleSignOut }) => {
+    const [ currentView, setCurrentView ] = useState('questions');
+
     return (
         <div className="Dashboard">
             <div className="container">
-                <Dashpane handleSignOut={handleSignOut} />
-                <AskQuestion />
-                {/* <SwipeWindow /> */}
+                <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)}/>
+                { currentView === 'askquestion' && <AskQuestion />}
+                { currentView === 'answers' && <Answers />}
+                { currentView === 'questions' && <SwipeWindow /> }
             </div>
         </div>
     )
