@@ -3,6 +3,7 @@ import './Dashboard.css';
 
 // Components
 import Navbar from './Navbar';
+import SwipeWindow from './SwipeWindow';
 
 const Dashpane = () => {
     return (
@@ -23,10 +24,10 @@ const Dashpane = () => {
 const Dashboard = () => {
     return (
         <div className="Dashboard">
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="container">
                 <Dashpane />
-                <div style={{flexGrow: 1}}></div>
+                <SwipeWindow />
             </div>
         </div>
     )
