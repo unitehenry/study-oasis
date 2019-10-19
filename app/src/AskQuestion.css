@@ -39,6 +39,7 @@
     background-color: #364652;
     justify-content: space-between;
     align-items: center;
+    margin: 10px 0;
 }
 
 .AskQuestion .options span {

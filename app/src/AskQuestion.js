@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import './AskQuestion.css';
 
-const Choice = ({ choice }) => {
+const Choice = ({ choice, removeChoice }) => {
     return (
-        <div key={`${i}${choice}`} className="option">
+        <div className="option">
             <p>{choice}</p>
-            <span>X</span>
+            <span onClick={removeChoice}>X</span>
         </div>
     )
 }
 
 const AskQuestion = () => {
-    const [question, setQuestion] = useState('');
+    // const [question, setQuestion] = useState('');
     const [choices, setChoices] = useState([]);
 
     const addChoice = (e) => {
         if (e.keyCode === 13) {
-            const newchoices = choices;
-            newchoices.push(e.target.value);
-            setChoices(newchoices);
+            setChoices([...choices, e.target.value]);
             e.target.value = '';
         }
+    }
+
+    const removeChoice = (i) => {
+        setChoices(choices.filter((c, index) => index !== i));
     }
 
     return (
@@ -31,9 +33,7 @@ const AskQuestion = () => {
                     <input type="text" placeholder="add a choice" onKeyUp={e => addChoice(e)} />
                 </div>
                 <div className="options">
-                    {
-                        choices.map((choice, i) => <Choice choice={choice} />)
-                    }
+                    { choices.map((choice, i) => <Choice key={`${i}${choice}`} choice={choice} removeChoice={() => removeChoice(i)}/> ) }
                 </div>
                 <button className="submit-btn">submit</button>
                 <p className="footnote">
