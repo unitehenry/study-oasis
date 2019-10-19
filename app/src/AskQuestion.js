@@ -5,7 +5,7 @@ const AskQuestion = () => {
     return (
         <div className="AskQuestion">
             <div className="question-card">
-                <h3>Ask a Question</h3>
+                <input type="text" placeholder="ask a question" />
                 <div className="choice">
                     <input type="text" placeholder="add a choice" />
                 </div>
