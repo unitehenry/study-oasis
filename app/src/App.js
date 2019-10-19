@@ -3,11 +3,13 @@ import './App.css';
 
 // Components
 import SignIn from './SignIn';
+import Dashboard from './Dashboard';
 
 function App() {
   return (
     <div className="App">
-      <SignIn />
+      <Dashboard />
+      {/* <SignIn /> */}
     </div>
   );
 }

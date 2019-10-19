@@ -1,0 +1,30 @@
+.Dashboard .container {
+    height: 100vh;
+    flex-wrap: wrap;
+    display: flex;
+} 
+
+.Dashpane {
+    width: 20rem;
+    height: 100%;
+    border-right: 2px solid #C1DBE3;
+}
+
+.Dashpane .option {
+    border-top: 2px solid #C1DBE3;
+    border-bottom: 2px solid #C1DBE3;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.Dashpane .option:hover,
+.Dashpane .option:active,
+.Dashpane .option:focus {
+    background-color: #C1DBE3;
+    color: #0D1B1E;
+}
+
+.Dashpane .option p {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
