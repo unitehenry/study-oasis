@@ -14,7 +14,7 @@ const Choices = ({ choices }) => {
 
 const Question = ({ question, userSession, questionUser, newQuestion }) => {
     const submitAnswer = () => {
-        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: questionUser, user: questionUser, answer: userSession.loadUserData().username })
+        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: userSession.loadUserData().username, user: questionUser, answer: userSession.loadUserData().username })
             .then((res) => console.log(res.data))
     }
 
