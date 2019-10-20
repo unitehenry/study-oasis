@@ -3,19 +3,28 @@ import './SwipeWindow.css';
 
 import axios from 'axios';
 
-const Choices = ({ choices }) => {
+const Choices = ({ choices, setChoice }) => {
+
+    const selectChoice = (e, choice) => e.target.checked ? setChoice(choice) : setChoice('');
+
     return (
         <ul>
-            {choices.map((choice, i) => <li key={`${i}${choice}`}> <input type="checkbox" />{choice}</li>)}
+            {choices.map((choice, i) => <li key={`${i}${choice}`}> <input type="checkbox" onChange={e => selectChoice(e, choice)}/>{choice}</li>)}
         </ul>
-
     )
 }
 
-const Question = ({ question, userSession, questionUser, newQuestion }) => {
+const Question = ({ question, userSession, questionUser, newQuestion, questionId }) => {
+    const [ choice, setChoice ] = useState(false);
+    const [ answer, setAnswer ] = useState('');
+
     const submitAnswer = () => {
-        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: userSession.loadUserData().username, user: questionUser, answer: userSession.loadUserData().username })
-            .then((res) => console.log(res.data))
+        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: question, user: questionUser, answer: userSession.loadUserData().username })
+            .then((res) => {
+                userSession.putFile(`/answers/${questionId}.json`, JSON.stringify({ question: questionId, answer: choice || answer }), { encrypt: false })
+                    .then(() => newQuestion())
+                    .catch(() => newQuestion())
+            })
     }
 
     const skipQuestion = (e) => {
@@ -27,7 +36,7 @@ const Question = ({ question, userSession, questionUser, newQuestion }) => {
         <div className="Question">
             <p>{question && question.question}</p>
 
-            {question && (question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} />)}
+            {question && (question.choices ? <Choices choices={question.choices} setChoice={(choices) => setChoice(choices)}/> : <textarea value={answer} onChange={e => setAnswer(e.target.value)} rows={10} />)}
  
             {
                 question && (
@@ -47,6 +56,7 @@ const SwipeWindow = ({ userSession, curation }) => {
     const [questionUser, setQuestionUser] = useState('');
     const [question, setQuestion] = useState(false);
     const [initialLoad, setInitialLoad] = useState(true);
+    const [ questionId, setQuestionId ] = useState('');
 
     function getQuestion() {
         axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
@@ -54,6 +64,7 @@ const SwipeWindow = ({ userSession, curation }) => {
                 userSession.getFile(`/questions/${res.data.question}.json`, { username: res.data.user, decrypt: false })
                     .then(contents => {
                         setQuestionUser(res.data.user);
+                        setQuestionId(res.data.question);
                         if(contents) {
                             contents && setQuestion(JSON.parse(contents));
                             contents && setInitialLoad(false);
@@ -76,7 +87,7 @@ const SwipeWindow = ({ userSession, curation }) => {
             {/* <div className="swipe left-swipe"><p>left</p></div> */}
 
             <div className="swipe-card">
-                <Question question={question} questionUser={questionUser} userSession={userSession} newQuestion={() => getQuestion()}/>
+                <Question question={question} questionUser={questionUser} userSession={userSession} newQuestion={() => getQuestion()} questionId={questionId}/>
             </div>
 
             {/* <div className="swipe right-swipe"><p>right</p></div> */}
