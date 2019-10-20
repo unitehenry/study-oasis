@@ -32,9 +32,9 @@ const Dashboard = ({ userSession, handleSignOut }) => {
         <div className="Dashboard">
             <div className="container">
                 <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)}/>
-                { currentView === 'askquestion' && <AskQuestion />}
-                { currentView === 'answers' && <Answers />}
-                { currentView === 'questions' && <SwipeWindow /> }
+                { currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
+                { currentView === 'answers' && <Answers userSession={userSession} />}
+                { currentView === 'questions' && <SwipeWindow userSession={userSession} /> }
             </div>
         </div>
     )
