@@ -1,6 +1,7 @@
 .Curate {
     padding: 2rem;
     flex-grow: 1;
+    overflow-y: scroll;
 }
 
 .Curate h1 {
