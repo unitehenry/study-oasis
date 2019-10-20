@@ -15,6 +15,7 @@ const Choice = ({ choice, removeChoice }) => {
 const AskQuestion = ({ userSession }) => {
     const [question, setQuestion] = useState('');
     const [choices, setChoices] = useState([]);
+    const [subject, setSubject] = useState('Science');
 
     const addChoice = (e) => {
         if (e.keyCode === 13) {
@@ -49,14 +50,14 @@ const AskQuestion = ({ userSession }) => {
         userSession.getFile('/questions.json', { decrypt: false })
             .then(contents => {
                 const questions = JSON.parse(contents);
-                question && questions && questions.push({ question, choices });
+                question && questions && questions.push({ question, choices, subject });
 
                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
                 setQuestion('');
                 setChoices([]);
 
-                console.log({ question, choices });
+                console.log({ question, choices, subject });
             })
     }
 
@@ -77,6 +78,15 @@ const AskQuestion = ({ userSession }) => {
                 <div className="options">
                     {choices.map((choice, i) => <Choice key={`${i}${choice}`} choice={choice} removeChoice={() => removeChoice(i)} />)}
                 </div>
+                <select value={subject} onChange={e => setSubject(e.target.value)}>
+                    <option>English</option>
+                    <option>Fine Arts</option>
+                    <option>Applied Arts</option>
+                    <option>Science</option>
+                    <option>Foreign Language</option>
+                    <option>Math</option>
+                    <option>History</option>
+                </select>
                 <button className="submit-btn" onClick={submitQuestion}>submit</button>
             </div>
             <p className="footnote">
