@@ -59,6 +59,7 @@ const SwipeWindow = ({ userSession, curation }) => {
     const [ questionId, setQuestionId ] = useState('');
 
     function getQuestion() {
+        setQuestion(false);
         axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
             .then((res) => {
                 if (res.data.question === '') {
