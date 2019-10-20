@@ -41,16 +41,19 @@ const Answers = ({ userSession }) => {
     })
 
     const removeAnswer = (i) => {
-        setAnswers(answers.filter((a, index) => index !== i));
+        const currentAnswers = answers.filter((a, index) => index !== i); 
+        setAnswers(currentAnswers);
+
+        (currentAnswers && currentAnswers.length) ? userSession.putFile('/questions.json', JSON.stringify(currentAnswers), { encrypt: false }) : userSession.deleteFile('/questions.json');
     }
 
     return (
         <div className="Answers">
             {
-                answers ? 
-                answers.map((answer, i) => <Answer key={`${i}${answer.answer}`} answer={answer} removeAnswer={() => removeAnswer(i)} />) 
-                :
-                <p style={{textAlign: 'center'}}>no one has answered your questions</p>
+                answers ?
+                    answers.map((answer, i) => <Answer key={`${i}${answer.answer}`} answer={answer} removeAnswer={() => removeAnswer(i)} />)
+                    :
+                    <p style={{ textAlign: 'center' }}>no one has answered your questions</p>
             }
         </div>
     )
