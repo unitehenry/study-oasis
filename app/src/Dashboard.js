@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 
 // Components
@@ -45,12 +45,8 @@ const Dashboard = ({ userSession, handleSignOut }) => {
 
     useEffect(() => {
         if (initialLoad) {
-            // userSession.getFile('/questions.json', { decrypt: true })
-            // .then(contents => {
-            // setAnswers(JSON.parse(contents));
-            // setInitialLoad(false);
-            // })
-            // .catch(() => setInitialLoad(false))
+            // get initial count of answers (setAnswers)
+                // set initial load to false
         }
     })
 
