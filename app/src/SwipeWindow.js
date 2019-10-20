@@ -58,10 +58,10 @@ const SwipeWindow = ({ userSession, curation }) => {
                             contents && setQuestion(JSON.parse(contents));
                             contents && setInitialLoad(false);
                         } else{
-                            getQuestion();
+                            setTimeout(() => getQuestion(), 10000);
                         }
                     })
-                    .catch(() => getQuestion())
+                    .catch(() => setTimeout(() => getQuestion(), 10000))
             })
     }
 
