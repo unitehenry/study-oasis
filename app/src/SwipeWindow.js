@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SwipeWindow.css';
 
+const Choices = ({ choices }) => {
+    return (
+        <ul>
+            { choices.map((choice, i) => <li key={`${i}${choice}`}> <input type="checkbox" />{choice}</li>) }
+        </ul>
+
+    )
+}
+
 const Question = () => {
+    const [question, setQuestion] = useState({ question: 'If Log 4 (x) = 12, then log 2 (x / 4) is equal to?', choices: ['Hello', 4, 26] })
+
     return (
         <div className="Question">
-            <p>If Log 4 (x) = 12, then log 2 (x / 4) is equal to?</p>
-            {/* <ul> */}
-                {/* <li> <input type="checkbox" /> 11</li> */}
-                {/* <li> <input type="checkbox" /> 48</li> */}
-                {/* <li> <input type="checkbox" /> -12</li> */}
-                {/* <li> <input type="checkbox" /> 22</li> */}
-            {/* </ul> */}
+            <p>{question.question}</p>
 
-            <textarea rows={10} />
+            { question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} /> }
 
             <div className="actions">
                 <button>skip</button>
