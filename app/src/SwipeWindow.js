@@ -38,7 +38,7 @@ const Question = ({ question, userSession, questionUser }) => {
     )
 }
 
-const SwipeWindow = ({ userSession }) => {
+const SwipeWindow = ({ userSession, curation }) => {
     const [questionUser, setQuestionUser] = useState('');
     const [question, setQuestion] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true);
@@ -47,7 +47,7 @@ const SwipeWindow = ({ userSession }) => {
 
     useEffect(() => {
         function getQuestion() {
-            axios.post('https://studyoasis.herokuapp.com/question/get', {})
+            axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
                 .then((res) => {
                     userSession.getFile(`/questions/${res.data.question}.json`, { decrypt: false })
                         .then(contents => {

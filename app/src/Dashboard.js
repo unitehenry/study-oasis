@@ -41,6 +41,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
     const [currentView, setCurrentView] = useState('questions');
     const [answers, setAnswers] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true);
+    const [curation, setCuration] = useState('None');
 
     useEffect(() => {
         if (initialLoad) {
@@ -59,8 +60,8 @@ const Dashboard = ({ userSession, handleSignOut }) => {
                 <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)} answers={answers && answers.length} />
                 {currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
                 {currentView === 'answers' && <Answers userSession={userSession} />}
-                {currentView === 'questions' && <SwipeWindow userSession={userSession} />}
-                {currentView === 'curate' && <Curate />}
+                {currentView === 'questions' && <SwipeWindow userSession={userSession} curation={curation} />}
+                {currentView === 'curate' && <Curate curation={curation} setCuration={(c) => setCuration(c)}/>}
                 <div className="Menu">
                     <span className="hamburger"></span>
                     <span className="hamburger"></span>

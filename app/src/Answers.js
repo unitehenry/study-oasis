@@ -65,8 +65,6 @@ const Answers = ({ userSession }) => {
     const removeAnswer = (i) => {
         const currentAnswers = answers.filter((a, index) => index !== i);
         setAnswers(currentAnswers);
-
-        (currentAnswers && currentAnswers.length) ? userSession.putFile('/questions.json', JSON.stringify(currentAnswers), { encrypt: false }) : userSession.deleteFile('/questions.json');
     }
 
     return (

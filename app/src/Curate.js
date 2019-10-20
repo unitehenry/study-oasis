@@ -25,14 +25,19 @@ const CurateOption = ({ selected, option, setSubject }) => {
     )
 }
 
-const Curate = () => {
-    const [ selectedSubject, setSelectedSubject ] = useState('None');
+const Curate = ({ curation, setCuration }) => {
+    const [ selectedSubject, setSelectedSubject ] = useState(curation);
+
+    const selectSubject = (subject) => {
+        setCuration(subject);
+        setSelectedSubject(subject);
+    }
 
     return (
         <div className="Curate">
             <h1>Curate Questions</h1>
             {
-                subjectCurations.map((subject, i) => <CurateOption key={`${i}${subject}`} selected={subject === selectedSubject} option={subject} setSubject={(subject) => setSelectedSubject(subject)}/>)
+                subjectCurations.map((subject, i) => <CurateOption key={`${i}${subject}`} selected={subject === selectedSubject} option={subject} setSubject={selectSubject}/>)
             }
         </div>
     )
