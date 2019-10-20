@@ -5,10 +5,14 @@ import './Dashboard.css';
 import SwipeWindow from './SwipeWindow';
 import AskQuestion from './AskQuestion';
 import Answers from './Answers';
+import Curate from './Curate';
 
 const Dashpane = ({ handleSignOut, setCurrentView, answers }) => {
     return (
         <div className="Dashpane">
+            {/* <div className="option disable-option"> */}
+                {/* <p>My Points: {1000}</p> */}
+            {/* </div> */}
             <div className="option" onClick={() => setCurrentView('askquestion')}>
                 <p>ask a question</p>
             </div>
@@ -18,6 +22,9 @@ const Dashpane = ({ handleSignOut, setCurrentView, answers }) => {
             </div>
             <div className="option" onClick={() => setCurrentView('questions')}>
                 <p>questions</p>
+            </div>
+            <div className="option" onClick={() => setCurrentView('curate')}>
+                <p>curate results</p>
             </div>
             <div className="option" onClick={(e) => handleSignOut(e)}>
                 <p>sign out</p>
@@ -36,7 +43,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { decrypt: false })
+            userSession.getFile('/questions.json', { decrypt: true })
                 .then(contents => {
                     setAnswers(JSON.parse(contents));
                     setInitialLoad(false);
@@ -51,6 +58,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
                 { currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
                 { currentView === 'answers' && <Answers userSession={userSession} />}
                 { currentView === 'questions' && <SwipeWindow userSession={userSession} /> }
+                { currentView === 'curate' && <Curate /> }
             </div>
         </div>
     )

@@ -39,7 +39,7 @@ const SwipeWindow = ({ userSession }) => {
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { decrypt: false })
+            userSession.getFile('/questions.json', { decrypt: true })
                 .then(contents => {
                     setQuestions(JSON.parse(contents))
                     setInitialLoad(false);

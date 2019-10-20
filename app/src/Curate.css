@@ -1,0 +1,28 @@
+.Curate {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+.Curate h1 {
+    margin: 1rem 0;
+}
+
+.Curate .curate-option {
+    border: 2px solid #FCFAF9;
+    padding: 1rem;
+    background-color: #0D1B1E;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.Curate .curate-option:hover,
+.Curate .curate-option:active,
+.Curate .curate-option:focus {
+    background-color: #FCFAF9;
+    color: #0D1B1E;
+}
+
+.Curate .curate-option.selected {
+    background-color: #FCFAF9;
+    color: #0D1B1E;
+}

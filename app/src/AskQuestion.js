@@ -52,7 +52,7 @@ const AskQuestion = ({ userSession }) => {
                 const questions = JSON.parse(contents);
                 question && questions && questions.push({ question, choices, subject });
 
-                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
+                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: true }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
                 setQuestion('');
                 setChoices([]);

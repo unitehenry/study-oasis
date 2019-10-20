@@ -41,6 +41,17 @@
     border-radius: 10px;
 }
 
+.Dashpane .option.disable-option {
+    cursor: unset;
+}
+
+.Dashpane .option.disable-option:hover,
+.Dashpane .option.disable-option:focus,
+.Dashpane .option.disable-option:active {
+    background-color: #0D1B1E; 
+    color: #FCFAF9;
+}
+
 @media (max-width: 850px) {
     .Dashpane {
         display: none;
