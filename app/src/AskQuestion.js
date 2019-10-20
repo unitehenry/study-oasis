@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './AskQuestion.css';
 
-// import axios from 'axios';
+import axios from 'axios';
 
 const subjectCurations = [
     'None',
@@ -40,36 +40,30 @@ const AskQuestion = ({ userSession }) => {
     }
 
     const submitQuestion = () => {
-        // axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
-        //     .then((res) => {
-        //         console.log(res.data)
+        axios.post('https://studyoasis.herokuapp.com/question/new', { user: userSession.loadUserData().username, subject: subject })
+            .then((res) => {
+                console.log(res.data)
 
-        //         userSession.getFile('/questions.json', { decrypt: false })
-        //             .then(contents => {
-        //                 const questions = JSON.parse(contents);
-        //                 question && questions && questions.push({ question, choices });
+                userSession.putFile(`/questions/${res.data.question}.json`, JSON.stringify({ question, choices, subject }), { encrypt: false })
+                    .then(() => {
+                        setQuestion('');
+                        setChoices([]);
+                    })
 
-        //                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
-
-        //                 setQuestion('');
-        //                 setChoices([]);
-
-        //                 console.log({ question, choices });
-        //             })
-        //     })
-
-        userSession.getFile('/questions.json', { decrypt: true })
-            .then(contents => {
-                const questions = JSON.parse(contents);
-                question && questions && questions.push({ question, choices, subject });
-
-                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: true }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: true })
-
-                setQuestion('');
-                setChoices([]);
-
-                console.log({ question, choices, subject });
             })
+
+        // userSession.getFile('/questions.json', { decrypt: true })
+        // .then(contents => {
+        // const questions = JSON.parse(contents);
+        // question && questions && questions.push({ question, choices, subject });
+        // 
+        // questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: true }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: true })
+        // 
+        // setQuestion('');
+        // setChoices([]);
+        // 
+        // console.log({ question, choices, subject });
+        // })
     }
 
     // const getFile = () => {
@@ -108,17 +102,17 @@ const AskQuestion = ({ userSession }) => {
                         <p>{subject ? subject : 'select a subject'}</p>
                     </div>
                     <div className="filter-options" ref={curationOptions}>
-                        {subjectCurations.map((subject, i) => <p className="option" key={`${i}${subject}`} onClick={() => selectCurationOption(subject)}>{subject}</p>)}        
+                        {subjectCurations.map((subject, i) => <p className="option" key={`${i}${subject}`} onClick={() => selectCurationOption(subject)}>{subject}</p>)}
                     </div>
-                </div>                
+                </div>
                 {/* <select value={subject} onChange={e => setSubject(e.target.value)}> */}
-                    {/* <option>English</option> */}
-                    {/* <option>Fine Arts</option> */}
-                    {/* <option>Applied Arts</option> */}
-                    {/* <option>Science</option> */}
-                    {/* <option>Foreign Language</option> */}
-                    {/* <option>Math</option> */}
-                    {/* <option>History</option> */}
+                {/* <option>English</option> */}
+                {/* <option>Fine Arts</option> */}
+                {/* <option>Applied Arts</option> */}
+                {/* <option>Science</option> */}
+                {/* <option>Foreign Language</option> */}
+                {/* <option>Math</option> */}
+                {/* <option>History</option> */}
                 {/* </select> */}
                 <button className="submit-btn" onClick={submitQuestion}>submit</button>
             </div>

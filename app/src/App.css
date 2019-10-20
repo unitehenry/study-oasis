@@ -10,6 +10,10 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+.App {
+  position: relative;
+}
+
 .header-logo {
   font-family: 'Roboto';
   text-transform: uppercase;
@@ -35,6 +39,34 @@ button:active {
   color: #0D1B1E;
 }
 
+.App .Menu {
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: space-between;
+  bottom: 15px;
+  right: 15px;
+  position: absolute;
+  background-color: #0D1B1E;
+  border: 2px solid #0D1B1E;
+  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.App .Menu:hover {
+  /* background-color: #364652; */
+  border: 2px solid #0D1B1E;
+}
+
+.App .Menu .hamburger {
+  height: 1px;
+  margin: 2px 0;
+  border: 2px solid #FCFAF9;
+}
+
 /* .App {
   text-align: center;
 }
@@ -57,3 +89,9 @@ button:active {
 .App-link {
   color: #09d3ac;
 } */
+
+@media (max-width: 850px) {
+  .App .Menu {
+    display: flex;
+  }
+}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './SwipeWindow.css';
 
+import axios from 'axios';
+
 const Choices = ({ choices }) => {
     return (
         <ul>
@@ -10,7 +12,12 @@ const Choices = ({ choices }) => {
     )
 }
 
-const Question = ({ question }) => {
+const Question = ({ question, userSession, questionUser }) => {
+    const submitAnswer = () => {
+        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: questionUser, user: questionUser, answer: userSession.loadUserData().username })
+            .then((res) => console.log(res.data))
+    }
+
     return (
         <div className="Question">
             <p>{question && question.question}</p>
@@ -21,30 +28,49 @@ const Question = ({ question }) => {
                 question && (
                     <div className="actions">
                         <button>skip</button>
-                        <button>submit</button>
+                        <button onClick={submitAnswer}>submit</button>
                     </div>
                 )
             }
 
-            { !question && <p style={{textAlign: 'center'}}>getting a question...</p> }
+            {!question && <p style={{ textAlign: 'center' }}>getting a question...</p>}
         </div>
     )
 }
 
 const SwipeWindow = ({ userSession }) => {
-    const [questions, setQuestions] = useState([]);
-    const [ initialLoad, setInitialLoad ] = useState(true);
+    const [questionUser, setQuestionUser] = useState('');
+    const [question, setQuestion] = useState([]);
+    const [initialLoad, setInitialLoad] = useState(true);
 
     // const blockstackId = 'unitehenry.id.blockstack'; // question user id
 
     useEffect(() => {
-        if (initialLoad) {
-            userSession.getFile('/questions.json', { decrypt: true })
-                .then(contents => {
-                    setQuestions(JSON.parse(contents))
-                    setInitialLoad(false);
+        function getQuestion() {
+            axios.post('https://studyoasis.herokuapp.com/question/get', {})
+                .then((res) => {
+                    userSession.getFile(`/questions/${res.data.question}.json`, { decrypt: false })
+                        .then(contents => {
+                            setQuestionUser(res.data.user);
+                            if(contents) {
+                                contents && setQuestion(JSON.parse(contents));
+                                contents && setInitialLoad(false);
+                            } else{
+                                getQuestion();
+                            }
+                        })
+                        .catch(() => getQuestion())
                 })
-                .catch(() => setInitialLoad(false))
+        }
+
+        if (initialLoad) {
+            getQuestion();  
+            // userSession.getFile('/questions.json', { decrypt: true })
+            // .then(contents => {
+            // setQuestions(JSON.parse(contents))
+            // setInitialLoad(false);
+            // })
+            // .catch(() => setInitialLoad(false))
         }
     })
 
@@ -53,7 +79,7 @@ const SwipeWindow = ({ userSession }) => {
             {/* <div className="swipe left-swipe"><p>left</p></div> */}
 
             <div className="swipe-card">
-                <Question question={questions && questions[0]} />
+                <Question question={question} questionUser={questionUser} userSession={userSession} />
             </div>
 
             {/* <div className="swipe right-swipe"><p>right</p></div> */}

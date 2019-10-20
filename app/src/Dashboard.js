@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Dashboard.css';
 
 // Components
@@ -8,10 +8,11 @@ import Answers from './Answers';
 import Curate from './Curate';
 
 const Dashpane = ({ handleSignOut, setCurrentView, answers }) => {
+
     return (
         <div className="Dashpane">
             {/* <div className="option disable-option"> */}
-                {/* <p>My Points: {1000}</p> */}
+            {/* <p>My Points: {1000}</p> */}
             {/* </div> */}
             <div className="option" onClick={() => setCurrentView('askquestion')}>
                 <p>ask a question</p>
@@ -37,18 +38,18 @@ const Dashboard = ({ userSession, handleSignOut }) => {
     // const blockstackId = 'unitehenry.id.blockstack'; // answer user id
     console.log(userSession.loadUserData().username, 'signed in');
 
-    const [ currentView, setCurrentView ] = useState('questions');
-    const [ answers, setAnswers ] = useState([]);
+    const [currentView, setCurrentView] = useState('questions');
+    const [answers, setAnswers] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { decrypt: true })
-                .then(contents => {
-                    setAnswers(JSON.parse(contents));
-                    setInitialLoad(false);
-                })
-                .catch(() => setInitialLoad(false))
+            // userSession.getFile('/questions.json', { decrypt: true })
+            // .then(contents => {
+            // setAnswers(JSON.parse(contents));
+            // setInitialLoad(false);
+            // })
+            // .catch(() => setInitialLoad(false))
         }
     })
 
@@ -56,10 +57,15 @@ const Dashboard = ({ userSession, handleSignOut }) => {
         <div className="Dashboard">
             <div className="container">
                 <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)} answers={answers && answers.length} />
-                { currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
-                { currentView === 'answers' && <Answers userSession={userSession} />}
-                { currentView === 'questions' && <SwipeWindow userSession={userSession} /> }
-                { currentView === 'curate' && <Curate /> }
+                {currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
+                {currentView === 'answers' && <Answers userSession={userSession} />}
+                {currentView === 'questions' && <SwipeWindow userSession={userSession} />}
+                {currentView === 'curate' && <Curate />}
+                <div className="Menu">
+                    <span className="hamburger"></span>
+                    <span className="hamburger"></span>
+                    <span className="hamburger"></span>
+                </div>
             </div>
         </div>
     )

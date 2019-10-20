@@ -24,7 +24,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
           {!userSession.isUserSignedIn() ? <SignIn userSession={userSession} handleSignIn={this.handleSignIn} /> : <Dashboard userSession={userSession} handleSignOut={(e) => this.handleSignOut(e)} />}
       </div>
     );
