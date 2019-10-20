@@ -28,7 +28,7 @@ const Question = ({ question, userSession, questionUser, newQuestion }) => {
             <p>{question && question.question}</p>
 
             {question && (question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} />)}
-
+ 
             {
                 question && (
                     <div className="actions">
@@ -45,7 +45,7 @@ const Question = ({ question, userSession, questionUser, newQuestion }) => {
 
 const SwipeWindow = ({ userSession, curation }) => {
     const [questionUser, setQuestionUser] = useState('');
-    const [question, setQuestion] = useState([]);
+    const [question, setQuestion] = useState(false);
     const [initialLoad, setInitialLoad] = useState(true);
 
     function getQuestion() {
