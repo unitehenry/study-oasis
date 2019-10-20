@@ -12,10 +12,15 @@ const Choices = ({ choices }) => {
     )
 }
 
-const Question = ({ question, userSession, questionUser }) => {
+const Question = ({ question, userSession, questionUser, newQuestion }) => {
     const submitAnswer = () => {
         axios.post('https://studyoasis.herokuapp.com/question/answer', { question: questionUser, user: questionUser, answer: userSession.loadUserData().username })
             .then((res) => console.log(res.data))
+    }
+
+    const skipQuestion = (e) => {
+        newQuestion();
+        e.target.blur();
     }
 
     return (
@@ -27,7 +32,7 @@ const Question = ({ question, userSession, questionUser }) => {
             {
                 question && (
                     <div className="actions">
-                        <button>skip</button>
+                        <button onClick={skipQuestion}>skip</button>
                         <button onClick={submitAnswer}>submit</button>
                     </div>
                 )
@@ -43,34 +48,26 @@ const SwipeWindow = ({ userSession, curation }) => {
     const [question, setQuestion] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true);
 
-    // const blockstackId = 'unitehenry.id.blockstack'; // question user id
+    function getQuestion() {
+        axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
+            .then((res) => {
+                userSession.getFile(`/questions/${res.data.question}.json`, { decrypt: false })
+                    .then(contents => {
+                        setQuestionUser(res.data.user);
+                        if(contents) {
+                            contents && setQuestion(JSON.parse(contents));
+                            contents && setInitialLoad(false);
+                        } else{
+                            getQuestion();
+                        }
+                    })
+                    .catch(() => getQuestion())
+            })
+    }
 
     useEffect(() => {
-        function getQuestion() {
-            axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
-                .then((res) => {
-                    userSession.getFile(`/questions/${res.data.question}.json`, { decrypt: false })
-                        .then(contents => {
-                            setQuestionUser(res.data.user);
-                            if(contents) {
-                                contents && setQuestion(JSON.parse(contents));
-                                contents && setInitialLoad(false);
-                            } else{
-                                getQuestion();
-                            }
-                        })
-                        .catch(() => getQuestion())
-                })
-        }
-
         if (initialLoad) {
-            getQuestion();  
-            // userSession.getFile('/questions.json', { decrypt: true })
-            // .then(contents => {
-            // setQuestions(JSON.parse(contents))
-            // setInitialLoad(false);
-            // })
-            // .catch(() => setInitialLoad(false))
+            getQuestion();
         }
     })
 
@@ -79,7 +76,7 @@ const SwipeWindow = ({ userSession, curation }) => {
             {/* <div className="swipe left-swipe"><p>left</p></div> */}
 
             <div className="swipe-card">
-                <Question question={question} questionUser={questionUser} userSession={userSession} />
+                <Question question={question} questionUser={questionUser} userSession={userSession} newQuestion={() => getQuestion()}/>
             </div>
 
             {/* <div className="swipe right-swipe"><p>right</p></div> */}
