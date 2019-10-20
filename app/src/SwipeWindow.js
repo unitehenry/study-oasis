@@ -51,17 +51,17 @@ const SwipeWindow = ({ userSession, curation }) => {
     function getQuestion() {
         axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
             .then((res) => {
-                userSession.getFile(`/questions/${res.data.question}.json`, { decrypt: false })
+                userSession.getFile(`/questions/${res.data.question}.json`, { username: res.data.user, decrypt: false })
                     .then(contents => {
                         setQuestionUser(res.data.user);
                         if(contents) {
                             contents && setQuestion(JSON.parse(contents));
                             contents && setInitialLoad(false);
                         } else{
-                            setTimeout(() => getQuestion(), 10000);
+                            // setTimeout(() => getQuestion(), 5000);
                         }
                     })
-                    .catch(() => setTimeout(() => getQuestion(), 10000))
+                    .catch(() => setTimeout(() => getQuestion(), 5000))
             })
     }
 

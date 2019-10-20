@@ -42,14 +42,11 @@ const AskQuestion = ({ userSession }) => {
     const submitQuestion = () => {
         axios.post('https://studyoasis.herokuapp.com/question/new', { user: userSession.loadUserData().username, subject: subject })
             .then((res) => {
-                console.log(res.data)
-
                 userSession.putFile(`/questions/${res.data.question}.json`, JSON.stringify({ question, choices, subject }), { encrypt: false })
                     .then(() => {
                         setQuestion('');
                         setChoices([]);
                     })
-
             })
 
         // userSession.getFile('/questions.json', { decrypt: true })
