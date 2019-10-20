@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './AskQuestion.css';
 
 // import axios from 'axios';
+
+const subjectCurations = [
+    'None',
+    'English',
+    'Fine Arts',
+    'Applied Arts',
+    'Science',
+    'Foreign Language',
+    'Math',
+    'History',
+]
 
 const Choice = ({ choice, removeChoice }) => {
     return (
@@ -68,6 +79,21 @@ const AskQuestion = ({ userSession }) => {
     //         })
     // }
 
+    const [ currentCuration, setCurrentCuration ] = useState();
+    const curationOptions = useRef();
+    const filterSelect = useRef();
+    const showCurationOptions = () => {
+        const display = curationOptions.current.style.display;
+        filterSelect.current.style.display = 'none';
+        curationOptions.current.style.display = (!display || display === 'none' ? 'block' : 'none');
+    }
+
+    const selectCurationOption = (curation) => {
+        setCurrentCuration(curation);
+        curationOptions.current.style.display = 'none';
+        filterSelect.current.style.display = 'block';
+    }
+
     return (
         <div className="AskQuestion">
             <div className="question-card">
@@ -78,15 +104,23 @@ const AskQuestion = ({ userSession }) => {
                 <div className="options">
                     {choices.map((choice, i) => <Choice key={`${i}${choice}`} choice={choice} removeChoice={() => removeChoice(i)} />)}
                 </div>
-                <select value={subject} onChange={e => setSubject(e.target.value)}>
-                    <option>English</option>
-                    <option>Fine Arts</option>
-                    <option>Applied Arts</option>
-                    <option>Science</option>
-                    <option>Foreign Language</option>
-                    <option>Math</option>
-                    <option>History</option>
-                </select>
+                <div className="filter">
+                    <div className="filter-select" ref={filterSelect} onClick={showCurationOptions}>
+                        <p>{currentCuration ? currentCuration : 'select a subject'}</p>
+                    </div>
+                    <div className="filter-options" ref={curationOptions}>
+                        {subjectCurations.map((subject, i) => <p className="option" key={`${i}${subject}`} onClick={() => selectCurationOption(subject)}>{subject}</p>)}        
+                    </div>
+                </div>                
+                {/* <select value={subject} onChange={e => setSubject(e.target.value)}> */}
+                    {/* <option>English</option> */}
+                    {/* <option>Fine Arts</option> */}
+                    {/* <option>Applied Arts</option> */}
+                    {/* <option>Science</option> */}
+                    {/* <option>Foreign Language</option> */}
+                    {/* <option>Math</option> */}
+                    {/* <option>History</option> */}
+                {/* </select> */}
                 <button className="submit-btn" onClick={submitQuestion}>submit</button>
             </div>
             <p className="footnote">

@@ -64,6 +64,45 @@
     outline: none;
 }
 
+.AskQuestion .filter {
+
+}
+
+.AskQuestion .filter .filter-select {
+    border: 2px solid #FCFAF9;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.AskQuestion .filter .filter-select:hover,
+.AskQuestion .filter .filter-select:active,
+.AskQuestion .filter .filter-select:focus {
+    background-color: #FCFAF9;
+    color: #0D1B1E;
+}
+
+.AskQuestion .filter .filter-select p {
+    user-select: none;
+}
+
+.AskQuestion .filter .filter-options {
+    display: none;
+}
+
+.AskQuestion .filter .filter-options .option {
+    border: 2px solid #FCFAF9;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.AskQuestion .filter .filter-options .option:hover {
+    background-color: #FCFAF9;
+    color: #0D1B1E;
+}
+
 .AskQuestion .footnote {
     text-align: center;
     margin: 2rem 0;
