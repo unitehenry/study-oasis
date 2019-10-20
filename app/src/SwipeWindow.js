@@ -21,7 +21,7 @@ const Question = ({ question, userSession, questionUser, newQuestion, questionId
     const submitAnswer = () => {
         axios.post('https://studyoasis.herokuapp.com/question/answer', { question: questionId, user: questionUser, answer: userSession.loadUserData().username })
             .then((res) => {
-                userSession.putFile(`/answers/${questionId}.json`, JSON.stringify({ question: questionId, answer: choice || answer }), { encrypt: false })
+                userSession.putFile(`/answers/${questionId}.json`, JSON.stringify({ question: question.question, answer: choice || answer }), { encrypt: false })
                     .then(() => newQuestion())
                     .catch(() => newQuestion())
             })

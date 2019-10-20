@@ -3,7 +3,9 @@ import './Answers.css';
 
 import axios from 'axios';
 
-const Answer = ({ answer, removeAnswer }) => {
+const Answer = ({ /*answer, */ userSession, removeAnswer, ans }) => {
+
+    const [answer, setAnswer] = useState({});
 
     const correctClick = () => {
         // remove from db
@@ -14,6 +16,13 @@ const Answer = ({ answer, removeAnswer }) => {
         // remove from db
         removeAnswer();
     }
+
+    useEffect(() => {
+        userSession.getFile(`/answers/${ans.question}.json`, { username: ans.answerer, decrypt: false })
+            .then(contents => {
+                contents && setAnswer(JSON.parse(contents));
+            }).catch(err => (err && console.log(err)))
+    })
 
     return (
         <div className="Answer">
@@ -29,36 +38,15 @@ const Answer = ({ answer, removeAnswer }) => {
 
 const Answers = ({ userSession }) => {
     const [answers, setAnswers] = useState([]);
+    // const [ answerIteration, setAnswerIteration ] = useState(0);
     const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
         if (initialLoad) {
             axios.post('https://studyoasis.herokuapp.com/question/list', { user: userSession.loadUserData().username })
-                .then((res) => {
-                    console.log(res.data.questions)
-
-                    function getQuestion(i) {
-                        if (i < res.data.questions.length) {
-                            userSession.getFile(`/answers/${res.data.questions[i].question}.json`, { username: res.data.questions[i].answerer, decrypt: false })
-                                .then(contents => {
-                                    contents && setAnswers([ ...answers, JSON.parse(contents) ]);
-                                    getQuestion(i+1);
-                                })
-                        } else {
-                            setInitialLoad(false);
-                        }
-                    }
-
-                    getQuestion(0);
-
-                })
-                .catch(() => setInitialLoad(false))
-            // userSession.getFile('/questions.json', { decrypt: true })
-            //     .then(contents => {
-            //         setAnswers(JSON.parse(contents));
-            //         setInitialLoad(false);
-            //     })
-            //     .catch(() => setInitialLoad(false))
+            .then((res) => {
+                setAnswers(res.data.questions);
+            })
         }
     })
 
@@ -71,7 +59,7 @@ const Answers = ({ userSession }) => {
         <div className="Answers">
             {
                 answers ?
-                    answers.map((answer, i) => <Answer key={`${i}${answer.answer}`} answer={answer} removeAnswer={() => removeAnswer(i)} />)
+                    answers.map((answer, i) => <Answer userSession={userSession} key={`${i}${answer.question}`} ans={answer} removeAnswer={() => removeAnswer()}/>)
                     :
                     <p style={{ textAlign: 'center' }}>no one has answered your questions</p>
             }
