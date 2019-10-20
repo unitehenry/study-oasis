@@ -26,7 +26,7 @@ const Choice = ({ choice, removeChoice }) => {
 const AskQuestion = ({ userSession }) => {
     const [question, setQuestion] = useState('');
     const [choices, setChoices] = useState([]);
-    const [subject, setSubject] = useState('Science');
+    const [subject, setSubject] = useState('');
 
     const addChoice = (e) => {
         if (e.keyCode === 13) {
@@ -79,7 +79,6 @@ const AskQuestion = ({ userSession }) => {
     //         })
     // }
 
-    const [ currentCuration, setCurrentCuration ] = useState();
     const curationOptions = useRef();
     const filterSelect = useRef();
     const showCurationOptions = () => {
@@ -89,7 +88,7 @@ const AskQuestion = ({ userSession }) => {
     }
 
     const selectCurationOption = (curation) => {
-        setCurrentCuration(curation);
+        setSubject(curation);
         curationOptions.current.style.display = 'none';
         filterSelect.current.style.display = 'block';
     }
@@ -106,7 +105,7 @@ const AskQuestion = ({ userSession }) => {
                 </div>
                 <div className="filter">
                     <div className="filter-select" ref={filterSelect} onClick={showCurationOptions}>
-                        <p>{currentCuration ? currentCuration : 'select a subject'}</p>
+                        <p>{subject ? subject : 'select a subject'}</p>
                     </div>
                     <div className="filter-options" ref={curationOptions}>
                         {subjectCurations.map((subject, i) => <p className="option" key={`${i}${subject}`} onClick={() => selectCurationOption(subject)}>{subject}</p>)}        
