@@ -15,12 +15,18 @@ const Question = ({ question }) => {
         <div className="Question">
             <p>{question && question.question}</p>
 
-            {question && question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} />}
+            {question && (question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} />)}
 
-            <div className="actions">
-                <button>skip</button>
-                <button>submit</button>
-            </div>
+            {
+                question && (
+                    <div className="actions">
+                        <button>skip</button>
+                        <button>submit</button>
+                    </div>
+                )
+            }
+
+            { !question && <p style={{textAlign: 'center'}}>getting a question...</p> }
         </div>
     )
 }

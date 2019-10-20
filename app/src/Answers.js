@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Answers.css';
-
-const ANSWERS = [
-    { question: 'question1', answer: 'hello' },
-    { question: 'question2', answer: 'hello' },
-    { question: 'question3', answer: 'hello' },
-    { question: 'question4', answer: 'hello' },
-    { question: 'question5', answer: 'hello' },
-    { question: 'question6', answer: 'hello' }
-]
 
 const Answer = ({ answer, removeAnswer }) => {
 
@@ -24,8 +15,8 @@ const Answer = ({ answer, removeAnswer }) => {
 
     return (
         <div className="Answer">
-            <p><strong>{answer.question}</strong></p>
-            <p>{answer.answer}</p>
+            <p><strong>{answer.question && answer.question}</strong></p>
+            <p>{answer.answer && answer.answer}</p>
             <div className="actions">
                 <button onClick={correctClick}>correct</button>
                 <button onClick={incorrectClick}>incorrect</button>
@@ -34,8 +25,16 @@ const Answer = ({ answer, removeAnswer }) => {
     )
 }
 
-const Answers = () => {
-    const [ answers, setAnswers ] = useState(ANSWERS);
+const Answers = ({ userSession }) => {
+    const blockstackId = 'unitehenry.id.blockstack';
+    const [answers, setAnswers] = useState([]);
+
+    useEffect(() => {
+        if (answers.length === 0) {
+            userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
+                .then(contents => setAnswers(JSON.parse(contents)))
+        }
+    })
 
     const removeAnswer = (i) => {
         setAnswers(answers.filter((a, index) => index !== i));
@@ -43,7 +42,12 @@ const Answers = () => {
 
     return (
         <div className="Answers">
-           { answers && answers.map((answer, i) => <Answer key={`${i}${answer.answer}`} answer={answer} removeAnswer={() => removeAnswer(i)} />) }
+            {
+                answers ? 
+                answers.map((answer, i) => <Answer key={`${i}${answer.answer}`} answer={answer} removeAnswer={() => removeAnswer(i)} />) 
+                :
+                <p style={{textAlign: 'center'}}>no one has answered your questions</p>
+            }
         </div>
     )
 }

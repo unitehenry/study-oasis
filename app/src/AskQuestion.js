@@ -34,7 +34,7 @@ const AskQuestion = ({ userSession }) => {
                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
                 // API Call here
-                
+
                 setQuestion('');
                 setChoices([]);
 
@@ -60,11 +60,11 @@ const AskQuestion = ({ userSession }) => {
                     {choices.map((choice, i) => <Choice key={`${i}${choice}`} choice={choice} removeChoice={() => removeChoice(i)} />)}
                 </div>
                 <button className="submit-btn" onClick={submitQuestion}>submit</button>
-                <p className="footnote">
-                    <i>just submit if non multiple-choice question</i>
-                    {/* <button onClick={getFile}>get file</button> */}
-                </p>
             </div>
+            <p className="footnote">
+                <i>just submit if non multiple-choice question</i>
+                {/* <button onClick={getFile}>get file</button> */}
+            </p>
         </div>
     )
 }
