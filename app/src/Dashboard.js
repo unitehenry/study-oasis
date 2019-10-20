@@ -48,6 +48,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
                     setAnswers(JSON.parse(contents));
                     setInitialLoad(false);
                 })
+                .catch(() => setInitialLoad(false))
         }
     })
 

@@ -44,6 +44,7 @@ const SwipeWindow = ({ userSession }) => {
                     setQuestions(JSON.parse(contents))
                     setInitialLoad(false);
                 })
+                .catch(() => setInitialLoad(false))
         }
     })
 

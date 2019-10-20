@@ -37,6 +37,7 @@ const Answers = ({ userSession }) => {
                     setAnswers(JSON.parse(contents));
                     setInitialLoad(false);
                 })
+                .catch(() => setInitialLoad(false))
         }
     })
 

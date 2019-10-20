@@ -47,12 +47,12 @@ const AskQuestion = ({ userSession }) => {
         //             })
         //     })
 
-        userSession.getFile('/questions.json', { decrypt: false })
+        userSession.getFile('/questions.json', { decrypt: true })
             .then(contents => {
                 const questions = JSON.parse(contents);
                 question && questions && questions.push({ question, choices, subject });
 
-                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: true }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
+                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: true }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: true })
 
                 setQuestion('');
                 setChoices([]);
