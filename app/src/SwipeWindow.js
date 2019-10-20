@@ -35,11 +35,11 @@ const SwipeWindow = ({ userSession }) => {
     const [questions, setQuestions] = useState([]);
     const [ initialLoad, setInitialLoad ] = useState(true);
 
-    const blockstackId = 'unitehenry.id.blockstack';
+    // const blockstackId = 'unitehenry.id.blockstack'; // question user id
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
+            userSession.getFile('/questions.json', { decrypt: false })
                 .then(contents => {
                     setQuestions(JSON.parse(contents))
                     setInitialLoad(false);

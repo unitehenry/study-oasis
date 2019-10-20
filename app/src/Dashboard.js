@@ -27,7 +27,7 @@ const Dashpane = ({ handleSignOut, setCurrentView, answers }) => {
 }
 
 const Dashboard = ({ userSession, handleSignOut }) => {
-    const blockstackId = 'unitehenry.id.blockstack';
+    // const blockstackId = 'unitehenry.id.blockstack'; // answer user id
     console.log(userSession.loadUserData().username, 'signed in');
 
     const [ currentView, setCurrentView ] = useState('questions');
@@ -36,7 +36,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
+            userSession.getFile('/questions.json', { decrypt: false })
                 .then(contents => {
                     setAnswers(JSON.parse(contents));
                     setInitialLoad(false);

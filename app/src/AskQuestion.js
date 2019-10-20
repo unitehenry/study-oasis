@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AskQuestion.css';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 const Choice = ({ choice, removeChoice }) => {
     return (
@@ -28,22 +28,35 @@ const AskQuestion = ({ userSession }) => {
     }
 
     const submitQuestion = () => {
-        axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
-            .then((res) => {
-                console.log(res.data)
+        // axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
+        //     .then((res) => {
+        //         console.log(res.data)
 
-                userSession.getFile('/questions.json', { decrypt: false })
-                    .then(contents => {
-                        const questions = JSON.parse(contents);
-                        question && questions && questions.push({ question, choices });
+        //         userSession.getFile('/questions.json', { decrypt: false })
+        //             .then(contents => {
+        //                 const questions = JSON.parse(contents);
+        //                 question && questions && questions.push({ question, choices });
 
-                        questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
+        //                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
-                        setQuestion('');
-                        setChoices([]);
+        //                 setQuestion('');
+        //                 setChoices([]);
 
-                        console.log({ question, choices });
-                    })
+        //                 console.log({ question, choices });
+        //             })
+        //     })
+
+        userSession.getFile('/questions.json', { decrypt: false })
+            .then(contents => {
+                const questions = JSON.parse(contents);
+                question && questions && questions.push({ question, choices });
+
+                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
+
+                setQuestion('');
+                setChoices([]);
+
+                console.log({ question, choices });
             })
     }
 

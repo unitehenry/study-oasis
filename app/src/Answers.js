@@ -26,13 +26,13 @@ const Answer = ({ answer, removeAnswer }) => {
 }
 
 const Answers = ({ userSession }) => {
-    const blockstackId = 'unitehenry.id.blockstack';
+    // const blockstackId = 'unitehenry.id.blockstack'; // answer user id
     const [answers, setAnswers] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
         if (initialLoad) {
-            userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
+            userSession.getFile('/questions.json', { decrypt: false })
                 .then(contents => {
                     setAnswers(JSON.parse(contents));
                     setInitialLoad(false);
