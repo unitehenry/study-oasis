@@ -33,13 +33,17 @@ const Question = ({ question }) => {
 
 const SwipeWindow = ({ userSession }) => {
     const [questions, setQuestions] = useState([]);
+    const [ initialLoad, setInitialLoad ] = useState(true);
 
     const blockstackId = 'unitehenry.id.blockstack';
 
     useEffect(() => {
-        if (questions.length === 0) {
+        if (initialLoad) {
             userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
-                .then(contents => setQuestions(JSON.parse(contents)))
+                .then(contents => {
+                    setQuestions(JSON.parse(contents))
+                    setInitialLoad(false);
+                })
         }
     })
 

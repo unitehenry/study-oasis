@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './AskQuestion.css';
 
+import axios from 'axios';
+
 const Choice = ({ choice, removeChoice }) => {
     return (
         <div className="option">
@@ -33,7 +35,8 @@ const AskQuestion = ({ userSession }) => {
 
                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
-                // API Call here
+                axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
+                    .then((res) => console.log(res))
 
                 setQuestion('');
                 setChoices([]);

@@ -34,12 +34,14 @@ const Dashboard = ({ userSession, handleSignOut }) => {
 
     const [ currentView, setCurrentView ] = useState('questions');
     const [ answers, setAnswers ] = useState([]);
+    const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
-        if (answers.length === 0) {
+        if (initialLoad) {
             userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
                 .then(contents => {
                     setAnswers(JSON.parse(contents));
+                    setInitialLoad(false);
                 })
         }
     })
@@ -47,7 +49,7 @@ const Dashboard = ({ userSession, handleSignOut }) => {
     return (
         <div className="Dashboard">
             <div className="container">
-                <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)} answers={answers.length} />
+                <Dashpane handleSignOut={handleSignOut} setCurrentView={(view) => setCurrentView(view)} answers={answers && answers.length} />
                 { currentView === 'askquestion' && <AskQuestion userSession={userSession} />}
                 { currentView === 'answers' && <Answers userSession={userSession} />}
                 { currentView === 'questions' && <SwipeWindow userSession={userSession} /> }
