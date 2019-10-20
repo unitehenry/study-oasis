@@ -28,20 +28,22 @@ const AskQuestion = ({ userSession }) => {
     }
 
     const submitQuestion = () => {
-        userSession.getFile('/questions.json', { decrypt: false })
-            .then(contents => {
-                const questions = JSON.parse(contents);
-                question && questions && questions.push({ question, choices });
+        axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
+            .then((res) => {
+                console.log(res.data)
 
-                questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
+                userSession.getFile('/questions.json', { decrypt: false })
+                    .then(contents => {
+                        const questions = JSON.parse(contents);
+                        question && questions && questions.push({ question, choices });
 
-                axios.post('http://localhost:8080/question', { blockstackId: userSession.loadUserData().username })
-                    .then((res) => console.log(res))
+                        questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
-                setQuestion('');
-                setChoices([]);
+                        setQuestion('');
+                        setChoices([]);
 
-                console.log({ question, choices });
+                        console.log({ question, choices });
+                    })
             })
     }
 

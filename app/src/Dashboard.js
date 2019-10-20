@@ -7,8 +7,6 @@ import AskQuestion from './AskQuestion';
 import Answers from './Answers';
 
 const Dashpane = ({ handleSignOut, setCurrentView, answers }) => {
-    console.log(answers)
-
     return (
         <div className="Dashpane">
             <div className="option" onClick={() => setCurrentView('askquestion')}>
