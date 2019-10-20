@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SwipeWindow.css';
 
 const Choices = ({ choices }) => {
     return (
         <ul>
-            { choices.map((choice, i) => <li key={`${i}${choice}`}> <input type="checkbox" />{choice}</li>) }
+            {choices.map((choice, i) => <li key={`${i}${choice}`}> <input type="checkbox" />{choice}</li>)}
         </ul>
 
     )
 }
 
-const Question = () => {
-    const [question, setQuestion] = useState({ question: 'If Log 4 (x) = 12, then log 2 (x / 4) is equal to?', choices: ['Hello', 4, 26] })
-
+const Question = ({ question }) => {
     return (
         <div className="Question">
-            <p>{question.question}</p>
+            <p>{question && question.question}</p>
 
-            { question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} /> }
+            {question && question.choices ? <Choices choices={question.choices} /> : <textarea rows={10} />}
 
             <div className="actions">
                 <button>skip</button>
@@ -27,13 +25,24 @@ const Question = () => {
     )
 }
 
-const SwipeWindow = () => {
+const SwipeWindow = ({ userSession }) => {
+    const [questions, setQuestions] = useState([]);
+
+    const blockstackId = 'unitehenry.id.blockstack';
+
+    useEffect(() => {
+        if (questions.length === 0) {
+            userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
+                .then(contents => setQuestions(JSON.parse(contents)))
+        }
+    })
+
     return (
         <div className="SwipeWindow">
             {/* <div className="swipe left-swipe"><p>left</p></div> */}
 
             <div className="swipe-card">
-                <Question />
+                <Question question={questions && questions[0]} />
             </div>
 
             {/* <div className="swipe right-swipe"><p>right</p></div> */}

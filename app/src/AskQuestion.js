@@ -33,6 +33,8 @@ const AskQuestion = ({ userSession }) => {
 
                 questions ? userSession.putFile('/questions.json', JSON.stringify(questions), { encrypt: false }) : userSession.putFile('/questions.json', JSON.stringify([{ question, choices }]), { encrypt: false })
 
+                // API Call here
+                
                 setQuestion('');
                 setChoices([]);
 

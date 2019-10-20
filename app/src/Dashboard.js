@@ -26,6 +26,8 @@ const Dashpane = ({ handleSignOut, setCurrentView }) => {
 }
 
 const Dashboard = ({ userSession, handleSignOut }) => {
+    console.log(userSession.loadUserData().username, 'signed in');
+
     const [ currentView, setCurrentView ] = useState('questions');
 
     return (
