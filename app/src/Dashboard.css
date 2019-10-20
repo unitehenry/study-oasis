@@ -11,6 +11,9 @@
 }
 
 .Dashpane .option {
+    display: flex;
+    position: relative;
+    align-items: center;
     border-top: .5 solid #FCFAF9;
     border-bottom: 2px solid #FCFAF9;
     padding: 1rem;
@@ -27,6 +30,15 @@
 .Dashpane .option p {
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+.Dashpane .option span {
+    position: absolute;
+    background-color: #FCFAF9;
+    color: #0D1B1E;
+    padding: 5px;
+    right: 15px;
+    border-radius: 10px;
 }
 
 @media (max-width: 850px) {

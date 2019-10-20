@@ -32,7 +32,9 @@ const Answers = ({ userSession }) => {
     useEffect(() => {
         if (answers.length === 0) {
             userSession.getFile('/questions.json', { username: blockstackId, decrypt: false })
-                .then(contents => setAnswers(JSON.parse(contents)))
+                .then(contents => {
+                    setAnswers(JSON.parse(contents));
+                })
         }
     })
 
