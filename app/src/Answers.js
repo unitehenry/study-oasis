@@ -39,7 +39,7 @@ const Answers = ({ userSession }) => {
 
                     function getQuestion(i) {
                         if (i < res.data.questions.length) {
-                            userSession.getFile(`/questions/${res.data.questions[i].question}.json`, { decrypt: true })
+                            userSession.getFile(`/answers/${res.data.questions[i].question}.json`, { username: res.data.questions[i].answerer, decrypt: false })
                                 .then(contents => {
                                     contents && setAnswers([ ...answers, JSON.parse(contents) ]);
                                     getQuestion(i+1);

@@ -19,7 +19,7 @@ const Question = ({ question, userSession, questionUser, newQuestion, questionId
     const [ answer, setAnswer ] = useState('');
 
     const submitAnswer = () => {
-        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: question, user: questionUser, answer: userSession.loadUserData().username })
+        axios.post('https://studyoasis.herokuapp.com/question/answer', { question: questionId, user: questionUser, answer: userSession.loadUserData().username })
             .then((res) => {
                 userSession.putFile(`/answers/${questionId}.json`, JSON.stringify({ question: questionId, answer: choice || answer }), { encrypt: false })
                     .then(() => newQuestion())
@@ -36,7 +36,7 @@ const Question = ({ question, userSession, questionUser, newQuestion, questionId
         <div className="Question">
             <p>{question && question.question}</p>
 
-            {question && (question.choices ? <Choices choices={question.choices} setChoice={(choices) => setChoice(choices)}/> : <textarea value={answer} onChange={e => setAnswer(e.target.value)} rows={10} />)}
+            {question && ( (question.choices && question.choices.length) ? <Choices choices={question.choices} setChoice={(choices) => setChoice(choices)}/> : <textarea value={answer} onChange={e => setAnswer(e.target.value)} rows={10} />)}
  
             {
                 question && (
@@ -47,7 +47,7 @@ const Question = ({ question, userSession, questionUser, newQuestion, questionId
                 )
             }
 
-            {!question && <p style={{ textAlign: 'center' }}>getting a question...</p>}
+            {!question && <p style={{ textAlign: 'center' }}>looking for a question...</p>}
         </div>
     )
 }
@@ -61,6 +61,9 @@ const SwipeWindow = ({ userSession, curation }) => {
     function getQuestion() {
         axios.post('https://studyoasis.herokuapp.com/question/get', curation !== 'None' ? {subject: curation} : {})
             .then((res) => {
+                if (res.data.question === '') {
+                    return false      
+                }
                 userSession.getFile(`/questions/${res.data.question}.json`, { username: res.data.user, decrypt: false })
                     .then(contents => {
                         setQuestionUser(res.data.user);
